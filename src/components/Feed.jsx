@@ -15,7 +15,6 @@ const Feed = () => {
         setDisplay(data)
     }
   }
-
     useEffect(()=>{
       gatherData();
     },[selectedCategory]);
