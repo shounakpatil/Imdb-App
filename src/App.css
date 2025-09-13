@@ -1,62 +1,338 @@
+:root{
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: #1f6feb;
+  --text: #111827;
+  --shadow: 0 6px 18px rgba(16,24,40,0.06);
+  --radius: 10px;
+}
+
 *{
-  font-family:Poppins, sans-serif;
+  box-sizing: border-box;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
 }
+
+body {
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Top bar */
 .navbar{
-  background: linear-gradient(45deg,#DAA520, #FFFF00);
+  background: transparent;
+  padding: 18px 24px;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: none;
 }
+.navbar img{
+  width:64px;
+  height:auto;
+  display:block;
+}
+
 .navbar>ul{
-display:flex;
-padding:10px;
-align-items: center;
-justify-content: center;
-margin-left:100px;
+  display:flex;
+  gap:18px;
+  align-items: center;
+  list-style:none;
 }
 .navbar>ul li{
-list-style:none;
-
-margin-right:40px;
-display:flex;
-align-items: center;
+  list-style:none;
+  margin-right:0;
+  font-size:14px;
+  color:var(--muted);
 }
 .navbar>ul li:hover{
   cursor:pointer;
   text-decoration:underline;
 }
 
+/* Sidebar (category buttons) */
 .sidebar{
   display:flex;
-  padding:10px;
-  justify-content: center;
-  margin-top:10px;
+  gap:12px;
+  padding:14px;
+  justify-content:center;
+  flex-wrap:wrap;
   width:100%;
+  margin-top: 12px;
 }
 .sidebar>button{
-width:45%;
-padding:20px;
-margin-right:10px;
-border:none;
-border-radius:10px;
-background:linear-gradient(45deg,#DAA520, #FFFF00);
-font-size:25px;
-font-weight:bold;
+  padding:10px 16px;
+  border:none;
+  border-radius:var(--radius);
+  background:var(--card);
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  min-width:110px;
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 .sidebar>button:hover{
   cursor:pointer;
-  background:linear-gradient(45deg,#DAA520, #FFD700);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(16,24,40,0.08);
+  border:1px solid rgba(31,111,235,0.12);
 }
+
+/* Main feed area */
 .feed{
-  background-color: rgb(235, 231, 231);
+  padding: 20px;
+  max-width:1200px;
+  margin: 18px auto;
 }
+
+/* Display stack wrapper adjustments (keeps MUI layout consistent) */
+.display-wrapper{
+  display:flex;
+  gap:24px;               /* increased gap to match 4-up layout */
+  flex-wrap:wrap;
+  justify-content:flex-start;
+}
+
+/* Make card sizes consistent and larger: 4 per row */
+.display-wrapper .MuiCard-root{
+  flex: 0 0 calc((100% - 72px) / 4); /* 4 cards across, subtracting 3 * gap (24px) */
+  max-width: calc((100% - 72px) / 4);
+  box-sizing: border-box;
+  min-height: 480px;       /* consistent card height */
+  display:flex;
+  flex-direction:column;
+}
+
+/* Slightly larger poster for bigger cards */
+.display-wrapper .MuiCard-root .MuiCardMedia-root{
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .display-wrapper .MuiCard-root{
+    flex: 0 0 calc((100% - 48px) / 3); /* 3 per row, gap 24px -> 2 gaps = 48px */
+    max-width: calc((100% - 48px) / 3);
+  }
+}
+
+@media (max-width: 900px) {
+  .display-wrapper .MuiCard-root{
+    flex: 0 0 calc((100% - 24px) / 2); /* 2 per row */
+    max-width: calc((100% - 24px) / 2);
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .display-wrapper .MuiCard-root{
+    flex: 0 0 100%;
+    max-width: 100%;
+    min-height: auto;
+  }
+  .display-wrapper .MuiCard-root .MuiCardMedia-root{
+    height: 200px;
+  }
+}
+
+/* Footer */
 .Footer{
-  background: linear-gradient(45deg,#DAA520, #FFFF00);
+  background: transparent;
+  padding: 18px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+.Footer ul{
+  list-style:none;
+  display:inline-flex;
+  gap:18px;
+  align-items:center;
+  padding:0;
+  margin:0;
+  flex-wrap:wrap;
+}
+.Footer li a{
+  color:var(--accent);
+  text-decoration:none;
+}
+.Footer li a:hover{
+  text-decoration:underline;
 }
 .author{
   display:flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+  gap:10px;
+  align-items:center;
 }
 .author>li>a{
   text-decoration:none;
-  margin-right:25px;
+  color:var(--accent);
 }
 
+/* Small responsive tweaks */
+@media (max-width: 768px) {
+  .sidebar>button{
+    min-width:90px;
+    padding:10px;
+    font-size:14px;
+  }
+  .navbar{
+    padding:12px;
+  }
+  .feed{
+    padding:12px;
+    margin:12px;
+  }
+}
+
+/* Movie card improvements - larger size */
+.MuiCard-root{
+  width: 300px;
+  min-width: 240px;
+  max-width: 340px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(34,30,20,0.07);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  border: 1px solid rgba(255,184,0,0.08);
+  background: linear-gradient(180deg, rgba(255,250,230,0.97), var(--card));
+  display:flex;
+  flex-direction:column;
+}
+
+/* Hover lift with slightly stronger lift */
+.MuiCard-root:hover{
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 28px 64px rgba(255,184,0,0.14);
+  border-color: rgba(255,184,0,0.12);
+}
+
+/* Larger poster area */
+.MuiCardMedia-root{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  transition: height .22s ease, transform .22s ease;
+  display:block;
+  box-shadow: inset 0 -40px 56px rgba(255,235,150,0.06);
+}
+
+/* Slightly bigger title and clearer spacing */
+.MuiCardContent-root{
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex:1;
+}
+
+/* Title */
+.MuiTypography-h5{
+  font-size:18px;
+  line-height:1.15;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:0;
+}
+
+/* Small meta (year) */
+.MuiTypography-body2{
+  color:var(--muted);
+  font-weight:600;
+  font-size:13px;
+}
+
+/* Genre chips rendered in .desc */
+.desc{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:6px;
+}
+.desc span{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: var(--chip-bg, rgba(16,24,40,0.03)); /* from inline style or fallback */
+  color: var(--text);
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:12px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.desc span .fa-circle{
+  font-size:8px;
+  width:8px;
+  height:8px;
+  display:inline-block;
+  border-radius:50%;
+  color: var(--chip-dot, #A9A9A9); /* from inline style or fallback */
+  transform: translateY(1px);
+}
+
+/* Rating badge inside collapse / details */
+.MuiCollapse-root p,
+.MuiCardContent-root p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.45;
+  margin:6px 0 0 0;
+}
+
+/* Emphasize rating and star */
+.MuiCardContent-root .fa-star,
+.MuiCardContent-root .fas.fa-star{
+  color:#FFD43B;
+  margin-right:6px;
+  transform: translateY(1px);
+}
+
+/* Small action icon spacing */
+.MuiCardActions-root{
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+/* Make expand icon more subtle */
+.MuiCardActions-root button{
+  color:var(--muted);
+}
+
+/* Responsive behavior: keep cards roomy on small screens but readable */
+@media (max-width: 768px) {
+  .MuiCard-root{
+    width: 100%;
+    max-width: 100%;
+    display:flex;
+    flex-direction:row;
+    gap:12px;
+    padding:8px;
+  }
+  .MuiCardMedia-root{
+    width: 44%;
+    height: 180px;
+    flex-shrink:0;
+    border-radius:8px;
+  }
+  .MuiCardContent-root{
+    width: 56%;
+    padding:10px 8px;
+  }
+  .desc span{
+    font-size:12px;
+    padding:6px 8px;
+  }
+}

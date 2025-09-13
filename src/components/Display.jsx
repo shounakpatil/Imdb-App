@@ -5,7 +5,7 @@ const Display = ({display}) =>{
     // console.log(display);
     return (
 <Stack sx={{display:"flex", flexDirection:{sm:"column", md:"row"}}} flexWrap="wrap"
-justifyContent="start" gap={2}>    
+justifyContent="start" gap={2} className="display-wrapper">    
 {
    Array.isArray(display) && display.map((item)=>{
         return (
@@ -16,7 +16,7 @@ justifyContent="start" gap={2}>
            display:'flex',
            alignItems:'center',
            justifyContent:'center',
-           margin:'10px'
+        //    margin:'10px'
           }}
         >
         {<DisplayCard details={item} />}
